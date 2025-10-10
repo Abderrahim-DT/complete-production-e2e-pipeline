@@ -13,9 +13,16 @@ pipeline {
             }
 
         }
-        stage("Checkout from SCM") {
+
+        stage("Build Application") {
             steps {
-                git branch: 'main', credentialsId: 'github', url: 'https://github.com/Abderrahim-DT/complete-production-e2e-pipeline.git'
+                sh "mvn clean package"
+            }
+        }
+
+        stage("Test Application") {
+            steps {
+                sh "mvn test"
             }
         }
     }
